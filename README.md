@@ -26,16 +26,15 @@ Dispatch: executing-plans -> multi:cursor-delegate (implement: composer-2.5)
 ## Requirements
 
 1. **Claude Code** with the **Superpowers** plugin installed.
-2. The **`multi`** plugin (provides the `multi:cursor-*` subagents):
-   ```text
-   /plugin marketplace add greenpolo/cc-multi-cli-plugin
-   /plugin install multi@cc-multi-cli-plugin
-   ```
+2. The **`multi`** plugin from [cc-multi-cli-plugin](https://github.com/greenpolo/cc-multi-cli-plugin), **0.1.x series** (provides the `multi:cursor-delegate`, `multi:cursor-explore`, and `multi:cursor-research` subagents).
 3. The **Cursor CLI** (`agent`), installed and signed in. `agent --list-models` must work.
+
+> [!WARNING]
+> **cc-multi-cli-plugin 0.2.0 and later are not supported yet.** Those releases removed the `multi` plugin and its `multi:cursor-*` agents, replacing them with `multi-core`, `multi-cursor`, and a local gateway launched through `claude-multi`. On those versions this skill cannot reach Cursor and every tier runs on its Claude fallback. Support for the new `multi-cursor` worker is planned. Until then, keep an existing 0.1.x install and do not update it.
 
 ### Without Cursor
 
-The skill still works. If the `multi` agents are missing, the Cursor CLI is not installed, or Cursor runs out of quota, every tier falls back to a Claude subagent (see `references/models.md`), and the fallback is announced in chat and in the final report. You lose the main benefit, which is moving mechanical implementation off Claude.
+The skill still works. If the `multi` agents are missing (including on cc-multi-cli-plugin 0.2.0 and later), the Cursor CLI is not installed, or Cursor runs out of quota, every tier falls back to a Claude subagent (see `references/models.md`), and the fallback is announced in chat and in the final report. You lose the main benefit, which is moving mechanical implementation off Claude.
 
 Other `multi` backends (Codex, OpenCode, Antigravity) are not routed yet.
 
